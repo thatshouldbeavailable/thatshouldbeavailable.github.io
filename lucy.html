@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lucy Progress</title>
+  <style>
+    /* Space-Themed Background */
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      background: radial-gradient(circle at center, #02040f, #03071e, #000); /* Darker space gradient */
+      color: #fff; /* White text for contrast */
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Adding more visible stars */
+    body::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://www.transparenttextures.com/patterns/stardust.png'); /* More visible stars */
+      opacity: 0.3; /* Increased visibility of stars */
+      z-index: 0; /* Behind everything */
+    }
+
+    /* Adding Lucy Image */
+    body::after {
+      content: "";
+      position: absolute;
+      top: 45%;
+      left: 50%;
+      transform: translate(-50%, -50%); /* Center the image */
+      width: 600px; /* Adjust the size of the image */
+      height: 600px;
+      background: url('lucy_asteroid.png') no-repeat center center;
+      background-size: contain; /* Keep the aspect ratio */
+      opacity: 0.15; /* Make it very subtle */
+      z-index: 1; /* Behind navigation and other elements */
+      pointer-events: none; /* Ensure it doesn't interfere with interactions */
+    }
+
+    /* Navigation Bar */
+    .navbar {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      background: linear-gradient(to bottom, #040d26, #01081a); /* Very dark blue gradient */
+      padding: 15px 0;
+      display: flex;
+      justify-content: center;
+      z-index: 15; /* Above Lucy image and stars */
+      border-bottom: 3px solid #234d8b; /* Blue border below the menu */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7); /* Subtle shadow for depth */
+    }
+
+    .navbar a {
+      text-decoration: none;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      padding: 0 10px; /* Spacing between bars */
+      transition: transform 0.3s, color 0.3s, border-color 0.3s;
+      border-left: 2px solid #234d8b; /* Blue vertical bar effect */
+    }
+
+    .navbar a:last-child {
+      border-right: 2px solid #234d8b; /* Add right bar for the last item */
+    }
+
+    .navbar a:hover {
+      color: #234d8b; /* Blue hover text */
+      transform: scale(1.1); /* Slight scaling effect */
+      border-color: #234d8b; /* Change border to blue when hovered */
+    }
+
+    h1 {
+      font-size: 28px;
+      margin-top: 120px; /* Adjust spacing to accommodate the navbar */
+      text-shadow: 0 2px 5px rgba(0, 0, 0, 0.8); /* Subtle shadow for depth */
+      z-index: 2; /* Above Lucy image */
+    }
+
+    #progress-container {
+      width: 50%;
+      background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
+      border-radius: 10px; /* Rounded corners */
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7); /* Modern shadow effect */
+      margin-bottom: 20px;
+      z-index: 2; /* Above Lucy image */
+    }
+
+    #progress-bar {
+      height: 30px;
+      width: 26.79%;
+      background-color: #4caf50; /* Keep the green progress bar */
+      text-align: center;
+      color: white;
+      line-height: 30px;
+      font-weight: bold;
+    }
+
+    #timer {
+      font-size: 18px;
+      margin-top: 10px;
+      background: rgba(10, 25, 50, 0.9); /* Very dark blue background */
+      color: #ffffff; /* White text */
+      padding: 10px 20px;
+      border-radius: 5px;
+      display: inline-block;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.8); /* Shadow for timer */
+      z-index: 2; /* Above Lucy image */
+    }
+
+    /* Fixed Clipper image in the top-right corner */
+    #clipper {
+      position: fixed;
+      top: 80px; /* Increased spacing from the top */
+      right: 40px; /* Position at the right */
+      width: 250px; /* Larger size */
+      height: auto; /* Maintain aspect ratio */
+      opacity: 0.8; /* Slight transparency */
+      z-index: 10; /* Ensure it's above everything else */
+    }
+
+    /* Fixed Logo in the top-left corner */
+    #logo {
+      position: fixed;
+      top: 80px; /* Increased spacing from the top */
+      left: 40px; /* Position at the left */
+      width: 200px; /* Larger size */
+      height: auto; /* Maintain aspect ratio */
+      opacity: 0.8; /* Slight transparency */
+      z-index: 10; /* Ensure it's above everything else */
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation Menu -->
+  <div class="navbar">
+    <a href="main.html">Europa Clipper</a>
+    <a href="juice.html">JUICE</a>
+    <a href="psyche.html">Psyche</a>
+    <a href="lucy.html">Lucy</a>
+  </div>
+
+  <!-- Fixed Clipper image on the top-right -->
+  <img id="clipper" src="lucy_probe.png" alt="Lucy Clipper Image">
+
+  <!-- Fixed Logo on the top-left -->
+  <img id="logo" src="lucy_logo.png" alt="Lucy Logo">
+
+  <h1>The Journey of Lucy to Asteroid flybys</h1>
+  <div id="progress-container">
+    <div id="progress-bar">0%</div>
+  </div>
+  <div id="timer">Time remaining: 0 days, 0 hours, 0 minutes, 0 seconds</div>
+  
+  <script>
+  const launchDate = new Date("2021-10-16T00:00:00"); // Lucy launch date
+  const arrivalDate = new Date("2033-10-01T00:00:00"); // Lucy arrival date
+</script>
+<script src="progress-bar.js"></script>
+
+
+</body>
+</html>
